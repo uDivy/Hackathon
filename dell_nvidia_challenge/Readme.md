@@ -49,7 +49,7 @@ This project provides a web-based interface for transcribing prescription images
 1. Clone the repository
 2. Install dependencies:
    ```
-   pip install -r requirements.txt
+   pip install -r requirements.txt // Instead of this my suggestion would be to install dependencies provided on import's.
    pip install git+https://github.com/huggingface/transformers
    pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
    ```

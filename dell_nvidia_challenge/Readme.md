@@ -1,5 +1,3 @@
-### PHASE I
-
 # Prescription Transcription and Structured Data Extraction System and Avatar Generation
 
 This project provides a web-based interface for transcribing prescription images and extracting structured data from them and create digital avatars. It utilizes advanced AI models for image processing, optical character recognition (OCR), and natural language understanding and creates avatars.
@@ -22,6 +20,7 @@ This project provides a web-based interface for transcribing prescription images
 - Prescription transcription using the Qwen2-VL model
 - Structured data extraction using Google's Gemini API
 - SadTalker to create talking digital avatars
+- Text to Audio using gTTS
 - User-friendly web interface built with Streamlit
 
 ## Technology Stack
@@ -58,7 +57,7 @@ This project provides a web-based interface for transcribing prescription images
    - Create `.env` file and add the following:
      - `GEMINI_API_KEY`: Your Google Gemini API key
 
-### PHASE II
+### Phase II
 
 Final directory structure:
 ```
@@ -100,31 +99,29 @@ Set up SadTalker:
 
       mkdir -p ../../checkpoints
 
-      # Download model files
-      curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/mapping_00109-model.pth.tar -o ../../checkpoints/mapping_00109-model.pth.tar
-      curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/mapping_00229-model.pth.tar -o ../../checkpoints/mapping_00229-model.pth.tar
-      curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/SadTalker_V0.0.2_256.safetensors -o ../../checkpoints/SadTalker_V0.0.2_256.safetensors
-      curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/SadTalker_V0.0.2_512.safetensors -o ../../checkpoints/SadTalker_V0.0.2_512.safetensors
+      curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/mapping_00109-model.pth.tar -o ../../checkpoints/mapping_00109-model.pth.tar \
+      curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/mapping_00229-model.pth.tar -o ../../checkpoints/mapping_00229-model.pth.tar \
+      curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/SadTalker_V0.0.2_256.safetensors -o ../../checkpoints/SadTalker_V0.0.2_256.safetensors \
+      curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/SadTalker_V0.0.2_512.safetensors -o ../../checkpoints/SadTalker_V0.0.2_512.safetensors \
 
       # Create gfpgan/weights directory
       mkdir -p ../../gfpgan/weights
 
-      # Download GFPGAN files
-      curl -L https://github.com/xinntao/facexlib/releases/download/v0.1.0/alignment_WFLW_4HG.pth -o ../../gfpgan/weights/alignment_WFLW_4HG.pth
-      curl -L https://github.com/xinntao/facexlib/releases/download/v0.1.0/detection_Resnet50_Final.pth -o ../../gfpgan/weights/detection_Resnet50_Final.pth
-      curl -L https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.4.pth -o ../../gfpgan/weights/GFPGANv1.4.pth
-      curl -L https://github.com/xinntao/facexlib/releases/download/v0.2.2/parsing_parsenet.pth -o ../../gfpgan/weights/parsing_parsenet.pth
+      curl -L https://github.com/xinntao/facexlib/releases/download/v0.1.0/alignment_WFLW_4HG.pth -o ../../gfpgan/weights/alignment_WFLW_4HG.pth \
+      curl -L https://github.com/xinntao/facexlib/releases/download/v0.1.0/detection_Resnet50_Final.pth -o ../../gfpgan/weights/detection_Resnet50_Final.pth \
+      curl -L https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.4.pth -o ../../gfpgan/weights/GFPGANv1.4.pth \
+      curl -L https://github.com/xinntao/facexlib/releases/download/v0.2.2/parsing_parsenet.pth -o ../../gfpgan/weights/parsing_parsenet.pth \
 
    - Run the bash script: `bash download_models.sh` on git bash.
 
 4. Install ffmpeg on Windows:
 
-   a. Go to the ffmpeg download page: https://ffmpeg.org/download.html
-   b. Under the "Get packages & executable files" section, click on the Windows logo.
-   c. On the next page, click on "Windows builds by BtbN" link.
-   d. Scroll down and find the latest release. Look for a file named like "ffmpeg-master-latest-win64-gpl.zip".
-   e. Download this zip file.
-   f. Extract the contents of the zip file to a location on your computer, for example: "C:\ffmpeg"
+   a. Go to the ffmpeg download page: https://ffmpeg.org/download.html \
+   b. Under the "Get packages & executable files" section, click on the Windows logo. \
+   c. On the next page, click on "Windows builds by BtbN" link. \
+   d. Scroll down and find the latest release. Look for a file named like "ffmpeg-master-latest-win64-gpl.zip". \
+   e. Download this zip file. \
+   f. Extract the contents of the zip file to a location on your computer, for example: "C:\ffmpeg" \
    g. Now we need to add ffmpeg to your system PATH:
       - Press Win + X and select "System"
       - Click on "Advanced system settings" on the right

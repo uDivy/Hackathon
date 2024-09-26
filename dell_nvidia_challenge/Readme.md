@@ -40,7 +40,7 @@ This project provides a web-based interface for transcribing prescription images
 2. **OCR with Qwen2-VL**: Uses the Qwen2-VL-2B-Instruct model to transcribe text from prescription images.
 3. **Structured Data Extraction**: Employs Google's Gemini API to extract structured information about medications from the transcribed text.
 4. **Digital Avatar Generation**: Used locally installed SadTalker model and google Text-To-Speech to generate Talking digital avatars.
-5. **Web Interface**: Provides a simple, intuitive interface for users to upload prescription images and view extracted data.
+5. **Web Interface**: Provides a simple, intuitive interface for users to upload prescription images and view extracted data and generates video.
 
 ## Setup and Installation
 
@@ -51,7 +51,7 @@ This project provides a web-based interface for transcribing prescription images
    ```
    pip install -r requirements.txt
    pip install git+https://github.com/huggingface/transformers
-   pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+   pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
    ```
 3. Set up environment variables:
    - Create `.env` file and add the following:

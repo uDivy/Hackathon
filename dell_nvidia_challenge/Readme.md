@@ -82,6 +82,7 @@ project_root/
 ├── gfpgan/
 │   └── ... (GFPGAN contents)
 │
+├── .env
 └── README.md
 ```
 

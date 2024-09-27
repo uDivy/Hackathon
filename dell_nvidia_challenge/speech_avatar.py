@@ -31,7 +31,8 @@ def create_avatar_video(image_path, audio_path, output_path):
         "--checkpoint_dir", os.path.join(current_dir, "checkpoints"),
         "--batch_size", "1",
         "--size", "256", # Added to reduce output size if not already specified
-        "--" + ("cpu" if not torch.cuda.is_available() else "gpu")
+        # "--" + ("cpu" if not torch.cuda.is_available() else "gpu")
+        "--cpu"
     ]
     
     # Set environment variables

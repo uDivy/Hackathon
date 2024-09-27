@@ -65,8 +65,8 @@ def process_transcription_to_avatar(transcription, avatar_image_path, output_vid
 
 # Example usage
 if __name__ == "__main__":
-    transcription = "This is a test transcription for the avatar video."
+    transcription = "This"
     avatar_image_path = "src/doctor1.jpeg"
-    output_video_path = "output/output_video.mp4"
+    output_video_path = "output/"
     
     process_transcription_to_avatar(transcription, avatar_image_path, output_video_path)

@@ -25,7 +25,7 @@ This project provides a web-based interface for transcribing prescription images
 
 ## Technology Stack
 
-- Python 3.x
+- Python 3.10.14
 - PyTorch
 - Transformers (Hugging Face)
 - Pillow (PIL)

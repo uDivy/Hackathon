@@ -11,6 +11,7 @@ import glob
 if 'prescription_result' not in st.session_state:
     st.session_state.prescription_result = None
 if 'uploaded_file' not in st.session_state:
+    
     st.session_state.uploaded_file = None
 if 'avatar_video_path' not in st.session_state:
     st.session_state.avatar_video_path = None
@@ -20,19 +21,26 @@ def free_memory():
     torch.cuda.empty_cache() if torch.cuda.is_available() else None
 
 async def process_prescription_ui():
-    st.subheader("Prescription Processing")
-    uploaded_file = st.file_uploader("Choose a prescription image", type=["jpg", "jpeg", "png"])
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("#### Upload any prescription image➡️")
+
+    with col2:
+        uploaded_file = st.file_uploader("Choose a file", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
         st.session_state.uploaded_file = uploaded_file
     
     if st.session_state.uploaded_file:
-        st.image(st.session_state.uploaded_file, caption="Uploaded Prescription", use_column_width=True)
+        imgcol1, imgcol2 = st.columns(2)
+        imgcol1.image(st.session_state.uploaded_file, caption="Uploaded Prescription") 
 
-        if st.button("Process Prescription"):
-            with st.spinner("Processing..."):
-                result = await process_prescription(st.session_state.uploaded_file)
-                st.session_state.prescription_result = result  # Store the result
+        with imgcol2:
+            if st.button("Process Prescriptio "):
+                with st.spinner("Processing..."): 
+                    result = await process_prescription(st.session_state.uploaded_file)
+                    st.session_state.prescription_result = result  # Store the  result
 
     # Display the result, whether it's from a new upload or from the session state
     if st.session_state.prescription_result:
@@ -56,7 +64,7 @@ def get_latest_video(output_dir):
     return max(list_of_files, key=os.path.getctime)
 
 def generate_avatar_video():
-    st.subheader("Avatar Video Generation")
+    st.markdown("#### 💫 Avatar Video Generation")
     
     if st.session_state.prescription_result is None:
         st.warning("Please process a prescription first.")
@@ -103,15 +111,42 @@ def generate_avatar_video():
             st.video(st.session_state.avatar_video_path)
 
 async def main():
-    st.title("Prescription Processing App")
+    st.title("📃 Prescription Processing App")
+    st.markdown(
+        '''
+        :gray[Transcribe prescription images and create digital avatars - powered by Artificial Intelligence.]   
+        :gray[View project source code on] [GitHub](https://github.com/uDivy/Hackathon)
+        '''
+    )
+    st.divider()
+    
+    # Sidebar content
+    with st.sidebar:
+        st.title("📃")
+        st.subheader("Follow these steps 👇")
+        st.caption('1. Upload a prescription image. \n'                     
+                   '2. Click "Transcribe Prescription". \n'
+                   '3. View the extracted medication information and disclaimer. \n'
+                   '4. Once the step ran successfully, click Generate Avatar Video. \n')
+        st.subheader("Disclaimer")
+        st.caption("This system is for informational purposes only and should not be used as a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare provider for interpretation of prescription details and medical guidance.")    
+        st.subheader("Contributing")
+        st.caption("Contributions are welcome! Please feel free to submit a Pull Request.")
+        st.divider()
 
-    col1, col2 = st.columns(2)
+    await process_prescription_ui()
+    generate_avatar_video()
 
-    with col1:
-        await process_prescription_ui()
+    # ** OLD LAYOUT ** 
+    # col1, col2 = st.columns(2)
 
-    with col2:
-        generate_avatar_video()
+    # with col1:
+    #     await process_prescription_ui()
+
+    # with col2:
+    #     generate_avatar_video()
+    
+
 
 if __name__ == "__main__":
     asyncio.run(main())

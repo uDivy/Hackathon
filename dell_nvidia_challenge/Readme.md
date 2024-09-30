@@ -44,7 +44,9 @@ This project provides a web-based interface for transcribing prescription images
 
 ## Setup and Installation
 
-### Phase I
+### Local Setup
+
+#### Phase I
 
 1. Clone the repository
 2. Install dependencies:
@@ -57,7 +59,7 @@ This project provides a web-based interface for transcribing prescription images
    - Create `.env` file and add the following:
      - `GEMINI_API_KEY`: Your Google Gemini API key
 
-### Phase II
+#### Phase II
 
 Final directory structure:
 ```
@@ -159,6 +161,45 @@ Set up SadTalker:
    ```
 
    This change reflects an update in the `torchvision` library where `functional_tensor` was merged into `functional`.
+   
+### Running the Project in NVIDIA AI Workbench
+To run this project in NVIDIA AI Workbench, follow these steps:
+
+- Pull the Docker Image: Make sure that the Docker image is available in your NVIDIA NGC (NVCR) repository. Pull the image to the AI Workbench environment:
+
+    ```bash
+    docker pull nvcr.io/yourusername/streamlit-app:v1.0
+  
+- Set Up Environment Variables: Before running the project, ensure that the necessary environment variables are set, particularly the Google Gemini API key:
+
+    ```bash
+    export GEMINI_API_KEY=<your-gemini-api-key>
+
+Alternatively, you can use a .env file to automatically load these variables.
+
+- Run the Docker Container: Start the Docker container in NVIDIA AI Workbench:
+
+    ```bash
+    docker run -p 8501:8501 nvcr.io/yourusername/streamlit-app:v1.0
+
+This will expose the Streamlit application on port 8501.
+
+- Access the Web Interface: Once the container is running, you can access the Streamlit web interface by navigating to:
+
+    ```arduino
+    http://localhost:8501
+    
+  Here you will be able to:
+
+  - Upload a prescription image.
+  - Transcribe the prescription using Qwen2-VL.
+  - Extract structured data.
+  - Generate a talking avatar using SadTalker.
+
+- Stop the Docker Container: When you're done, stop the running container:
+
+    ```bash
+    docker stop <container-id>
 
 ## Usage
 

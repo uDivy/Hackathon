@@ -1,6 +1,6 @@
 # Prescription Transcription and Structured Data Extraction System and Avatar Generation
 
-This project provides a web-based interface for transcribing prescription images and extracting structured data from them and create digital avatars. It utilizes advanced AI models for image processing, optical character recognition (OCR), and natural language understanding and creates avatars.
+This project presents a web-based system for transcribing prescription images, extracting structured data, and generating digital avatars. It utilizes advanced AI models for image preprocessing, optical character recognition (OCR), and natural language understanding. The project utilizes the Qwen2-VL model for accurate text transcription and Google's Gemini API for structured data extraction, particularly for medical prescriptions. Additionally, the SadTalker model and Google Text-to-Speech (gTTS) create dynamic, talking avatars based on the extracted data. The user-friendly interface, enables seamless interaction, making the process of digitizing prescriptions both efficient and accessible. 
 
 ## Table of Contents
 - [Features](#features)

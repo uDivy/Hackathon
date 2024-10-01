@@ -50,7 +50,7 @@ By integrating AI-driven solutions for OCR, data extraction, and avatar generati
 
 ## Setup and Installation
 
-### Local Setup
+### Local Setup [Windows 11+]
 
 #### Phase I
 
@@ -173,12 +173,30 @@ Set up SadTalker:
 
 To run this project using Docker Desktop or Docker Daemon, follow the steps below:
 
+### Using the Prebuilt Docker Image from Docker Hub:
+   ```bash
+     docker pull divya291/nvdia_ai_wb_python_31014_cuda12:latest
+    ```
+           
+
+    To run the container, use the following command:
+   
+   ```bash
+   docker run -it --gpus all -p 8501:8501 -p 8888:8888 -e GEMINI_API_KEY=YOUR_API_KEY --name my_nvidia_container -w /workspace divya291/nvdia_ai_wb_python_31014_cuda12:latest /bin/bash 
+
+   streamlit run ui.py 
+
+   Access the app by navigating to http://localhost:8501 in your browser.
+   ```
+
+    This will make the web interface available at http://localhost:8501.
+
 1. **Build the Docker Image**:
    Ensure that you are in the root directory of the project, where the Dockerfile is 
    located.  Run the following command to build the image:
    
      ```bash
-     docker build -t <your-image-name>:latest .
+     docker build -f cuda_python_dockerfile -t <your-image-name>:latest .
 
    This will build the Docker image and tag it with <your-image-name>:latest.
 
@@ -187,9 +205,12 @@ To run this project using Docker Desktop or Docker Daemon, follow the steps belo
    command:
 
     ```bash
-    docker run -p 8501:8501 --env-file .env <your-image-name>:latest  
+    docker run -it --gpus all -p 8501:8501 -p 8888:8888 -e GEMINI_API_KEY=YOUR_API_KEY --name <container-name> -w /workspace <your-dockerhub-username>/<your-image-name>:latest /bin/bash 
+
+    streamlit run ui.py 
 
     Access the app by navigating to http://localhost:8501 in your browser.
+    ```
 
 3. **Push the Image to a Docker Registry:**:
    First, log in to the Docker registry you want to use (Docker Hub or NVIDIA NGC):
@@ -236,7 +257,11 @@ To run this project using Docker Desktop or Docker Daemon, follow the steps belo
     Then, run the container with:
    
    ```bash
-   docker run -p 8501:8501 --env-file .env <your-dockerhub-username>/<your-image-name>:latest
+   docker run -it --gpus all -p 8501:8501 -p 8888:8888 -e GEMINI_API_KEY=YOUR_API_KEY --name <container-name> -w /workspace <your-dockerhub-username>/<your-image-name>:latest /bin/bash 
+
+   streamlit run ui.py 
+
+    Access the app by navigating to http://localhost:8501 in your browser.
    ```
 
     This will expose the web interface at http://localhost:8501.

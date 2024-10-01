@@ -22,7 +22,7 @@ def create_avatar_video(image_path, audio_path, output_path):
     print(output_path)
     # Construct the command to run inference.py
     command = [
-        "python", os.path.join(current_dir, "src", "SadTalker", "inference.py"),
+        "python3.10", os.path.join(current_dir, "src", "SadTalker", "inference.py"),
         "--driven_audio", audio_path,
         "--source_image", image_path,
         "--result_dir", output_path,

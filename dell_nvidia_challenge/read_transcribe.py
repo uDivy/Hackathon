@@ -73,8 +73,15 @@ tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2-VL-2B-Instruct")
 
 processor = AutoProcessor.from_pretrained("Qwen/Qwen2-VL-2B-Instruct")
 
+# Get the API key from environment variables
+api_key = os.environ.get("GEMINI_API_KEY", "")
+
+# If the API key is empty, try to read it from os.getenv
+if api_key == "":
+    api_key = os.getenv('GEMINI_API_KEY', '')
+
 # Configure Gemini API
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+genai.configure(api_key=api_key)
 
 async def preprocess_image(image_file: io.BytesIO) -> bytes:
     """

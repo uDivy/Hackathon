@@ -1,6 +1,8 @@
 # Prescription Transcription and Structured Data Extraction System and Avatar Generation
 
-This project provides a web-based interface for transcribing prescription images and extracting structured data from them and create digital avatars. It utilizes advanced AI models for image processing, optical character recognition (OCR), and natural language understanding and creates avatars.
+This project presents a web-based system for transcribing prescription images, extracting structured data, and generating digital avatars. Leveraging advanced AI models for image preprocessing, optical character recognition (OCR), and natural language understanding. The project utilizes the Qwen2-VL model for accurate text transcription and Google's Gemini API for structured data extraction, particularly for medical prescriptions. Additionally, the SadTalker model and Google Text-to-Speech (gTTS) create dynamic, talking avatars based on the extracted data. The user-friendly interface, built with Streamlit, enables seamless interaction, making the process of digitizing prescriptions both efficient and accessible.
+
+By integrating AI-driven solutions for OCR, data extraction, and avatar generation into a single platform, this project offers an efficient method for digitizing and interacting with prescription data, making it particularly valuable for healthcare applications, patient education, and medical data management.
 
 ## Table of Contents
 - [Features](#features)
@@ -267,6 +269,12 @@ This project should work on both **Linux** and **Windows** environments where Do
 ## Restrictions
 - The project uses the **Qwen2-VL** and **SadTalker** models, which require significant computational power. While they are GPU-accelerated, a **CUDA-compatible GPU** is recommended for optimal performance.
 - The **SadTalker** model may have dependencies and limitations based on the **PyTorch** version being used. Ensure compatibility between **PyTorch** and **Torchvision** versions to avoid model loading errors.
+
+## Future work
+
+This project serves as a prototype for advanced medical solutions. The scope of this project can be expanded by supporting to a broader range of medical documents beyond prescriptions, such as patient reports, lab results, and diagnostic images.  By integrating advanced Natural Language Processing (NLP) models, such as BERT or GPT, we could improve the understanding and extraction of more complex medical terms and relationships from the transcribed text. Enhancing the structured data extraction by linking it to medical knowledge graphs or databases, could provide richer context and more precise drug or dosage information. Additionally, integrating multi-language support would broaden the system's applicability to non-English-speaking regions. 
+
+The ability of the project in transcribing images, extracting structured data, and generate talking avatars can be adapted for various other fields, such as marketing and advertising. For example, it could be used to create personalized, dynamic ads where product images are converted into interactive digital avatars. This will improve customer engagement and can help in branding of the companies. Expanding avatar capabilities to support personalized ad content could offer significant value in industries such as e-commerce and media. 
 
 
 ## Disclaimer

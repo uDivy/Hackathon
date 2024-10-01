@@ -7,9 +7,13 @@ This project provides a web-based interface for transcribing prescription images
 - [Technology Stack](#technology-stack)
 - [Key Components](#key-components)
 - [Setup and Installation](#setup-and-installation)
-  - [Phase I](#phase-i)
-  - [Phase II](#phase-ii)
+  - [Local Setup](#local-setup)
+    - [Phase I](#phase-i)
+    - [Phase II](#phase-ii)
+- [Running the Project in Docker](#running-the-project-in-docker)
 - [Usage](#usage)
+- [Target Systems](#target-systems)
+- [Restrictions](#restrictions)
 - [Disclaimer](#disclaimer)
 - [Contributing](#contributing)
 - [License](#license)
@@ -48,75 +52,76 @@ This project provides a web-based interface for transcribing prescription images
 
 #### Phase I
 
-1. Clone the repository
-2. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   pip install git+https://github.com/huggingface/transformers
-   pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-   ```
-3. Set up environment variables:
+1. **Clone the repository**
+2. **Install dependencies**:
+       ```
+       pip install -r requirements.txt
+       pip install git+https://github.com/huggingface/transformers
+       pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+       ```
+3. **Set up environment variables:**
    - Create `.env` file and add the following:
-     - `GEMINI_API_KEY`: Your Google Gemini API key
+   - `GEMINI_API_KEY`: Your Google Gemini API key
 
 #### Phase II
 
 Final directory structure:
-```
-project_root/
-│
-├── ui.py
-├── speech_avatar.py
-├── read_transcribe.py
-│
-├── src/
-│   ├── SadTalker/
-│   │   └── ... (SadTalker contents)
-│   │
-│   └── doctor1.jpg
-│
-├── output/
-│   └── ... (generated videos)
-│
-├── checkpoints/
-│   └── ... (model checkpoints)
-│
-├── gfpgan/
-│   └── ... (GFPGAN contents)
-│
-├── .env
-└── README.md
-```
+  ```
+  project_root/
+  │
+  ├── ui.py
+  ├── speech_avatar.py
+  ├── read_transcribe.py
+  │
+  ├── src/
+  │   ├── SadTalker/
+  │   │   └── ... (SadTalker contents)
+  │   │
+  │   └── doctor1.jpg
+  │
+  ├── output/
+  │   └── ... (generated videos)
+  │
+  ├── checkpoints/
+  │   └── ... (model checkpoints)
+  │
+  ├── gfpgan/
+  │   └── ... (GFPGAN contents)
+  │
+  ├── .env
+  └── README.md
+  ```
 
 Set up SadTalker:
-1. Change to the `src` directory.
-2. Clone the SadTalker repository:
+1. **Change to the `src` directory**
+2. **Clone the SadTalker repository**:
    ```
    git clone https://github.com/OpenTalker/SadTalker.git
    cd SadTalker
    ```
-3. Download the pre-trained model:
+3. **Download the pre-trained model**:
    - For Windows users, modify the download script as specified:
    - Edit the file with this:
-      #!/bin/bash
+        #!/bin/bash
 
-      mkdir -p ../../checkpoints
+        mkdir -p ../../checkpoints
+        
+        curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/mapping_00109-model.pth.tar -o ../../checkpoints/mapping_00109-model.pth.tar \
+        curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/mapping_00229-model.pth.tar -o ../../checkpoints/mapping_00229-model.pth.tar \
+        curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/SadTalker_V0.0.2_256.safetensors -o ../../checkpoints/SadTalker_V0.0.2_256.safetensors \
+        curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/SadTalker_V0.0.2_512.safetensors -o ../../checkpoints/SadTalker_V0.0.2_512.safetensors
+        
+        mkdir -p ../../gfpgan/weights
+        
+        curl -L https://github.com/xinntao/facexlib/releases/download/v0.1.0/alignment_WFLW_4HG.pth -o ../../gfpgan/weights/alignment_WFLW_4HG.pth \
+        curl -L https://github.com/xinntao/facexlib/releases/download/v0.1.0/detection_Resnet50_Final.pth -o ../../gfpgan/weights/detection_Resnet50_Final.pth \
+        curl -L https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.4.pth -o ../../gfpgan/weights/GFPGANv1.4.pth \
+        curl -L https://github.com/xinntao/facexlib/releases/download/v0.2.2/parsing_parsenet.pth -o ../../gfpgan/weights/parsing_parsenet.pth
 
-      curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/mapping_00109-model.pth.tar -o ../../checkpoints/mapping_00109-model.pth.tar \
-      curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/mapping_00229-model.pth.tar -o ../../checkpoints/mapping_00229-model.pth.tar \
-      curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/SadTalker_V0.0.2_256.safetensors -o ../../checkpoints/SadTalker_V0.0.2_256.safetensors \
-      curl -L https://github.com/OpenTalker/SadTalker/releases/download/v0.0.2-rc/SadTalker_V0.0.2_512.safetensors -o ../../checkpoints/SadTalker_V0.0.2_512.safetensors 
-
-      mkdir -p ../../gfpgan/weights
-
-      curl -L https://github.com/xinntao/facexlib/releases/download/v0.1.0/alignment_WFLW_4HG.pth -o ../../gfpgan/weights/alignment_WFLW_4HG.pth \
-      curl -L https://github.com/xinntao/facexlib/releases/download/v0.1.0/detection_Resnet50_Final.pth -o ../../gfpgan/weights/detection_Resnet50_Final.pth \
-      curl -L https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.4.pth -o ../../gfpgan/weights/GFPGANv1.4.pth \
-      curl -L https://github.com/xinntao/facexlib/releases/download/v0.2.2/parsing_parsenet.pth -o ../../gfpgan/weights/parsing_parsenet.pth 
 
    - Run the bash script: `bash download_models.sh` on git bash.
 
-4. Install ffmpeg on Windows:
+4. **Install ffmpeg on Windows**:
 
    a. Go to the ffmpeg download page: https://ffmpeg.org/download.html \
    b. Under the "Get packages & executable files" section, click on the Windows logo. \
@@ -137,69 +142,105 @@ Set up SadTalker:
    - Type `ffmpeg -version` and press Enter
    - If you see version information, ffmpeg is successfully installed
 
-5. Ensure you have a default avatar image:
+5. **Ensure you have a default avatar image**:
 
    Place a front-facing image named `doctor1.jpg` in your project directory under `src`.
 
-6. This error will occur due torch version mismatch between Qwen2VL and SadTalker: 
+6. **This error will occur due torch version mismatch between Qwen2VL and SadTalker**:
+   
    Based on the error message, it seems that the issue is related to an outdated version of `torchvision` or a mismatch between `torch` and `torchvision` versions. Since you've requested a solution that doesn't involve uninstalling or installing dependencies, we can try to work around this issue by modifying the code that's causing the error.
 
    Here's a potential solution:
 
-   **1. Locate the file `basicsr/data/degradations.py` in your environment.**
-   2. Open this file in a text editor.
-   3. Find the line that says:
-
-   ```python
-   from torchvision.transforms.functional_tensor import rgb_to_grayscale
-   ```
-
-   4. Replace this line with:
-
-   ```python
-   from torchvision.transforms.functional import rgb_to_grayscale
-   ```
-
-   This change reflects an update in the `torchvision` library where `functional_tensor` was merged into `functional`.
-   
-### Running the Project in NVIDIA AI Workbench
-To run this project in NVIDIA AI Workbench, follow these steps:
-
-- Pull the Docker Image: Make sure that the Docker image is available in your NVIDIA NGC (NVCR) repository. Pull the image to the AI Workbench environment:
-
-    ```bash
-    docker pull nvcr.io/yourusername/streamlit-app:v1.0
+     1. **Locate the file `basicsr/data/degradations.py` in your environment.**
+     2. **Open this file in a text editor.**
+     3. **Find the line that says:**
   
-- Set Up Environment Variables: Before running the project, ensure that the necessary environment variables are set, particularly the Google Gemini API key:
+           ```python
+           from torchvision.transforms.functional_tensor import rgb_to_grayscale
+  
+      4. **Replace this line with:**
+  
+           ```python
+           from torchvision.transforms.functional import rgb_to_grayscale
+           ```
+  
+     This change reflects an update in the `torchvision` library where `functional_tensor` was merged into `functional`.
+   
+## Running the Project in Docker
+
+To run this project using Docker Desktop or Docker Daemon, follow the steps below:
+
+1. **Build the Docker Image**:
+   Ensure that you are in the root directory of the project, where the Dockerfile is 
+   located.  Run the following command to build the image:
+   
+     ```bash
+     docker build -t <your-image-name>:latest .
+
+   This will build the Docker image and tag it with <your-image-name>:latest.
+
+2. **Test the Image Locally**:
+   Run the image locally to make sure everything works as expected. Use the following 
+   command:
 
     ```bash
-    export GEMINI_API_KEY=<your-gemini-api-key>
+    docker run -p 8501:8501 --env-file .env <your-image-name>:latest  
 
-Alternatively, you can use a .env file to automatically load these variables.
+    Access the app by navigating to http://localhost:8501 in your browser.
 
-- Run the Docker Container: Start the Docker container in NVIDIA AI Workbench:
+3. **Push the Image to a Docker Registry:**:
+   First, log in to the Docker registry you want to use (Docker Hub or NVIDIA NGC):
 
-    ```bash
-    docker run -p 8501:8501 nvcr.io/yourusername/streamlit-app:v1.0
-
-This will expose the Streamlit application on port 8501.
-
-- Access the Web Interface: Once the container is running, you can access the Streamlit web interface by navigating to:
-
-    ```arduino
-    http://localhost:8501
+    **For Docker Hub**:
+      
+     ```bash
+       docker login
+     ```
+         
+      After logging in, push the image to Docker Hub: 
     
-  Here you will be able to:
-
-  - Upload a prescription image.
-  - Transcribe the prescription using Qwen2-VL.
-  - Extract structured data.
-  - Generate a talking avatar using SadTalker.
-
-- Stop the Docker Container: When you're done, stop the running container:
-
+     ```bash
+     docker tag <your-image-name>:latest <your-dockerhub-username>/<your-image-name>:latest      
+     docker push <your-dockerhub-username>/<your-image-name>:latest
+     ```
+           
+    
+    **For NVIDIA NGC**:
+      
+      Log in to the NVIDIA NGC registry:
+      
+      ```bash
+      docker login nvcr.io
+      ```
+        
+    
+      Then, push the image to the NVIDIA NGC registry:
+        
+      ```bash
+      docker tag <your-image-name>:latest nvcr.io/<your-ngc-username>/<your-image-name>:latest
+      docker push nvcr.io/<your-ngc-username>/<your-image-name>:latest
+      ```
+    
+4. **Run the Image from Docker Registry**:
+   
+   Once the image is pushed, others can pull it from the registry and run it using:
+   
     ```bash
-    docker stop <container-id>
+     docker pull <your-dockerhub-username>/<your-image-name>:latest
+    ```
+           
+
+    Then, run the container with:
+   
+   ```bash
+   docker run -p 8501:8501 --env-file .env <your-dockerhub-username>/<your-image-name>:latest
+   ```
+
+    This will expose the web interface at http://localhost:8501.
+  
+This setup allows you to push the prebuilt Docker image to a registry so you can use it without needing to rebuild the entire environment.
+
 
 ## Usage
 

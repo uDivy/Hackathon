@@ -78,4 +78,4 @@ LABEL com.nvidia.workbench.programming-languages="python3"
 LABEL com.nvidia.workbench.schema-version="v2"
 
 # Set the command to run your Streamlit application
-CMD ["streamlit", "run", "ui.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "ui.py", "--server.port=8501", "--server.address=localhost"]

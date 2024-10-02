@@ -7,9 +7,17 @@ By integrating AI-driven solutions for OCR, data extraction, and avatar generati
 
 ## From prescription ---> Talking Avatars (Let the image do the talking!!!)
 
-```markdown
-![Image 1](https://github.com/uDivy/Hackathon/tree/development/dell_nvidia_challenge/sample/1.jpg) ![Image 1](https://github.com/uDivy/Hackathon/tree/development/dell_nvidia_challenge/sample/arrow.jpeg) ![Video 1](https://github.com/uDivy/Hackathon/tree/development/dell_nvidia_challenge/sample/final_demo.mp4)
-```
+<div style="display: flex;">
+  <img src="https://github.com/uDivy/Hackathon/blob/development/dell_nvidia_challenge/sample//1.jpg?raw=true" alt="Sample Image 1" width="400"/>
+  <img src="https://github.com/uDivy/Hackathon/tree/development/dell_nvidia_challenge/sample/arrow.jpeg?raw=true" alt="Arrow Image" width="400"/>
+</div>
+
+## Video Demo
+<p>
+  <a href="https://github.com/uDivy/Hackathon/blob/development/dell_nvidia_challenge/sample/final_demo.mp4">Watch the demo video</a>
+</p>
+
+
 
 ## Table of Contents
 - [Features](#features)

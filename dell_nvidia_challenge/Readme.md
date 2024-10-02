@@ -8,8 +8,7 @@ By integrating AI-driven solutions for OCR, data extraction, and avatar generati
 ## From prescription ---> Talking Avatars (Let the image do the talking!!!)
 
 <div style="display: flex;">
-  <img src="https://github.com/uDivy/Hackathon/blob/development/dell_nvidia_challenge/sample//1.jpg?raw=true" alt="Sample Image 1" width="400"/>
-  <img src="https://github.com/uDivy/Hackathon/tree/development/dell_nvidia_challenge/sample/arrow.jpeg?raw=true" alt="Arrow Image" width="400"/>
+  <img src="https://github.com/uDivy/Hackathon/blob/development/dell_nvidia_challenge/sample//1.jpg?raw=true" alt="Sample Image 1" width="300"/>
 </div>
 
 ## Video Demo

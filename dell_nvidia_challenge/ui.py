@@ -46,7 +46,7 @@ async def process_prescription_ui():
 
             # Display the result in the same column
             if st.session_state.prescription_result:
-                result_col.subheader("Processed Information:")
+                result = st.session_state.prescription_result
                 if 'medications' in result:
                     for medication in result['medications']:
                         st.write(medication)

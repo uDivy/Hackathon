@@ -5,6 +5,12 @@ This project presents a web-based system for transcribing prescription images, e
 
 By integrating AI-driven solutions for OCR, data extraction, and avatar generation into a single platform, this project offers an efficient method for digitizing and interacting with prescription data, making it particularly valuable for healthcare applications, patient education, and medical data management.
 
+## From prescription ---> Talking Avatars (Let the image do the talking!!!)
+
+```markdown
+![Image 1](https://github.com/uDivy/Hackathon/tree/development/dell_nvidia_challenge/sample/1.jpg) ![Image 1](https://github.com/uDivy/Hackathon/tree/development/dell_nvidia_challenge/sample/arrow.jpeg) ![Video 1](https://github.com/uDivy/Hackathon/tree/development/dell_nvidia_challenge/sample/final_demo.mp4)
+```
+
 ## Table of Contents
 - [Features](#features)
 - [Technology Stack](#technology-stack)

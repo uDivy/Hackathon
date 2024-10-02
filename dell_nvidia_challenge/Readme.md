@@ -58,7 +58,7 @@ By integrating AI-driven solutions for OCR, data extraction, and avatar generati
 1. **Clone the repository**
 2. **Install dependencies**:
        ```
-       pip install -r requirements.txt
+       pip install -r requirements.txt # pip install -r requirementslinuxdocker.txt for Linux distros
        pip install git+https://github.com/huggingface/transformers
        pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
        ```

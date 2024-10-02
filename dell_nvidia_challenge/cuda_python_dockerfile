@@ -39,10 +39,10 @@ ARG BUILD_TIMESTAMP
 WORKDIR /workspace
 
 # Copy the requirements file into the container
-COPY requirements.txt .
+COPY requirementslinuxdocker.txt .
 
 # Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirementslinuxdocker.txt
 
 RUN  sed -i 's/from torchvision.transforms.functional_tensor/from torchvision.transforms.functional/' /usr/local/lib/python3.10/dist-packages/basicsr/data/degradations.py
 

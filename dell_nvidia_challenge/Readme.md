@@ -318,5 +318,4 @@ This system is for informational purposes only and should not be used as a subst
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
-
-[Specify your license here]
+[Creative Commons Attribution-NonCommercial-NoDerivs (CC-BY-NC-ND)]

@@ -1,0 +1,81 @@
+# Start from NVIDIA's Python 3.10 and CUDA 12.0 base image
+FROM nvcr.io/nvidia/ai-workbench/python-cuda120:1.0.3
+ARG TARGETARCH
+
+# Avoid prompts from apt
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Set environment variables for JupyterLab and Streamlit
+ENV SHELL=/bin/bash
+ENV JUPYTER_PORT=8888
+ENV STREAMLIT_PORT=8501
+
+# Declare the GEMINI_API_KEY environment variable
+ENV GEMINI_API_KEY=""
+
+# Install system level dependencies
+RUN apt update \
+    && apt install -yqq --no-install-recommends \
+        curl \
+        git \
+        git-lfs \
+        vim \
+        python3-pip \
+        libgl1-mesa-glx \
+        libglib2.0-0 \ 
+        ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# Install JupyterLab 
+RUN pip install --no-cache-dir \
+    jupyterlab==4.1.2 
+
+# Disable the JupyterLab announcement banner
+RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
+
+ARG BUILD_TIMESTAMP
+# Set up working directory
+WORKDIR /workspace
+
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Install the dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN  sed -i 's/from torchvision.transforms.functional_tensor/from torchvision.transforms.functional/' /usr/local/lib/python3.10/dist-packages/basicsr/data/degradations.py
+
+# Copy the application code into the container
+COPY . .
+
+# Expose ports for JupyterLab and Streamlit
+EXPOSE $JUPYTER_PORT
+EXPOSE $STREAMLIT_PORT
+
+# Set labels for NVIDIA AI Workbench compatibility
+LABEL com.nvidia.workbench.application.jupyterlab.class="webapp"
+LABEL com.nvidia.workbench.application.jupyterlab.health-check-cmd="[ \\$(echo url=\\$(jupyter lab list | head -n 2 | tail -n 1 | cut -f1 -d' ' | grep -v 'Currently' | sed \"s@/?@/lab?@g\") | curl -o /dev/null -s -w '%{http_code}' --config -)== '200' ]"
+LABEL com.nvidia.workbench.application.jupyterlab.timeout-seconds="90"
+LABEL com.nvidia.workbench.application.jupyterlab.start-cmd="jupyter lab --allow-root --port=${JUPYTER_PORT} --ip 0.0.0.0 --no-browser --NotebookApp.base_url=\\\$PROXY_PREFIX --NotebookApp.default_url=/lab --NotebookApp.allow_origin='*'"
+LABEL com.nvidia.workbench.application.jupyterlab.webapp.port="${JUPYTER_PORT}"
+LABEL com.nvidia.workbench.application.jupyterlab.stop-cmd="jupyter lab stop ${JUPYTER_PORT}"
+LABEL com.nvidia.workbench.application.jupyterlab.type="jupyterlab"
+LABEL com.nvidia.workbench.application.jupyterlab.webapp.url-cmd="jupyter lab list | head -n 2 | tail -n 1 | cut -f1 -d' ' | grep -v 'Currently'"
+LABEL com.nvidia.workbench.application.jupyterlab.webapp.autolaunch="true"
+LABEL com.nvidia.workbench.cuda-version="12.0"
+LABEL com.nvidia.workbench.description="Python 3.10 with CUDA 12.0, JupyterLab, and Streamlit"
+LABEL com.nvidia.workbench.image-version="1.0.0"
+LABEL com.nvidia.workbench.labels="cuda12.0,python3.10,jupyterlab,streamlit"
+LABEL com.nvidia.workbench.name="Python 3.10 CUDA 12.0 Dev Environment"
+LABEL com.nvidia.workbench.os="linux"
+LABEL com.nvidia.workbench.os-distro="ubuntu"
+LABEL com.nvidia.workbench.package-manager.apt.binary="/usr/bin/apt"
+LABEL com.nvidia.workbench.package-manager.apt.installed-packages="curl git git-lfs vim"
+LABEL com.nvidia.workbench.package-manager.pip.binary="/usr/local/bin/pip"
+LABEL com.nvidia.workbench.package-manager.pip.installed-packages="jupyterlab==4.1.2 streamlit"
+LABEL com.nvidia.workbench.programming-languages="python3"
+LABEL com.nvidia.workbench.schema-version="v2"
+
+# Set the command to run your Streamlit application
+CMD ["streamlit", "run", "ui.py", "--server.port=8501", "--server.address=localhost"]

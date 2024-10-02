@@ -145,9 +145,10 @@ Set up SadTalker:
    - Type `ffmpeg -version` and press Enter
    - If you see version information, ffmpeg is successfully installed
 
-5. **Ensure you have a default avatar image**:
+5. **Ensure you have a default avatar image and python in command for speect_avatar.py**:
 
    Place a front-facing image named `doctor1.jpg` in your project directory under `src`.
+   If you are using Linux distibution python cmd in `speech_avatar.py` will change to `<"python3.10", os.path.join(current_dir, "src", "SadTalker", "inference.py"),>`, OR you could use the `dockerized` branch.
 
 6. **This error will occur due torch version mismatch between Qwen2VL and SadTalker**:
    
@@ -194,8 +195,12 @@ To run this project using Docker Desktop or Docker Daemon, follow the steps belo
 
 1. **Build the Docker Image**:
    Ensure that you are in the root directory of the project, where the Dockerfile is 
-   located.  Run the following command to build the image:
+   located.  
    
+   If you are using Linux distibution python cmd in `speech_avatar.py` will change to `<"python3.10", os.path.join(current_dir, "src", "SadTalker", "inference.py"),>`, OR you could use the `dockerized` branch.
+   
+   Run the following command to build the image:
+
      ```bash
      docker build -f cuda_python_dockerfile -t <your-image-name>:latest .
 

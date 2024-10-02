@@ -1,3 +1,4 @@
+# [Copharmacists AI](https://youtu.be/PxHCiFPKNX8)
 # Prescription Transcription and Structured Data Extraction System and Avatar Generation
 
 This project presents a web-based system for transcribing prescription images, extracting structured data, and generating digital avatars. Leveraging advanced AI models for image preprocessing, optical character recognition (OCR), and natural language understanding. The project utilizes the Qwen2-VL model for accurate text transcription and Google's Gemini API for structured data extraction, particularly for medical prescriptions. Additionally, the SadTalker model and Google Text-to-Speech (gTTS) create dynamic, talking avatars based on the extracted data. The user-friendly interface, built with Streamlit, enables seamless interaction, making the process of digitizing prescriptions both efficient and accessible.
@@ -32,7 +33,7 @@ By integrating AI-driven solutions for OCR, data extraction, and avatar generati
 ## Technology Stack
 
 - Python 3.10.14
-- PyTorch
+- PyTorch with Cuda enabled
 - Transformers (Hugging Face)
 - Pillow (PIL)
 - Google Generative AI

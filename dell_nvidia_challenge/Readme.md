@@ -290,6 +290,12 @@ This project has been designed to work in the **NVIDIA AI Workbench** environmen
 - **Docker** and **NVIDIA NGC** for container management.
 - **Python 3.10** environment.
 
+Follow the instructions in the Readme.md from the development branch to set up and run the application locally (on Docker/Windows). \
+You can use the provided sample image (uploaded in the sample directory) or your own image through the web app, accessible at http://localhost:8501/. \
+Since the application leverages deep learning models, it requires a GPU with at least 6GB of memory and a CPU with at least 16GB of RAM. \
+The application has been tested on a Windows machine with 16GB of CPU RAM and a 4GB Nvidia MX130 GPU (specs). \
+Performance is slower on older GPUs like the MX130, but you can expect significant improvements with newer, more powerful GPUs. \
+
 This project should work on both **Linux** and **Windows** environments where Docker or native installations are supported.
 
 ## Restrictions
